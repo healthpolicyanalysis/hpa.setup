@@ -1,3 +1,22 @@
+#' Create Zipped Project
+#'
+#' @param outfile file path for desired zipped project directory.
+#' @param project_name name of new project. Defaults to "new_project".
+#' @param dependencies_file_path if building project library based on a script,
+#' specify the path of this file. It should be similar to a dependencies.R
+#' script that you may find in a rhino app.
+#' @param dependencies vector or list of packages.
+#' @param add_gitzip whether to add a gitzip.sh file to new project directory.
+#'
+#' @return file path of new zipped project.
+#'
+#' @export
+#'
+#' @examples
+#' \donttest{
+#'   new_proj_path <- "./test_proj.zip"
+#'   new_proj_zip <- get_setup_zip(outfile = new_proj_path, dependencies = "glue")
+#' }
 get_setup_zip <- function(outfile,
                           project_name = "new_project",
                           dependencies_file_path = NULL,
@@ -9,6 +28,13 @@ get_setup_zip <- function(outfile,
   # 4. zips up the project (library) for the user to send to the remote machine
 
   project_path <- file.path(tempdir(), project_name)
+
+  if(dir.exists(project_path)) {
+    # there shouldn't be a folder here unless by chance this fails without the
+    # deferred event below triggering...
+    # but if it does exist, delete it.
+    unlink(project_path, recursive = TRUE)
+  }
 
   dir.create(project_path, recursive = TRUE)
 
