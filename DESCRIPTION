@@ -1,6 +1,6 @@
 Package: hpa.setup
 Title: Setup Help For Remote, Internet-Less Environments
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person("Rex", "Parsons", , "rex.parsons@healthpolicy.com", role = c("aut", "cre"))
 Description: Provides help to package up necessary packages for projects.
